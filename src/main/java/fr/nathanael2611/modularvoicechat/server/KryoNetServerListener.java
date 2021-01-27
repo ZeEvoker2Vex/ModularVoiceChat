@@ -6,7 +6,7 @@ import fr.nathanael2611.modularvoicechat.api.VoiceDispatchEvent;
 import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
 import fr.nathanael2611.modularvoicechat.network.objects.*;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 
 public class KryoNetServerListener extends Listener
@@ -22,12 +22,12 @@ public class KryoNetServerListener extends Listener
     @Override
     public void received(Connection connection, Object object)
     {
-        EntityPlayerMP player = this.voiceServer.getPlayer(connection);
+        ServerPlayerEntity player = this.voiceServer.getPlayer(connection);
         if (object instanceof HelloImAPlayer)
         {
             HelloImAPlayer hello = ((HelloImAPlayer) object);
             Helpers.log("A new player tried to connect to VoiceServer named: " + hello.playerName);
-            EntityPlayerMP playerMP = Helpers.getPlayerByUsername(hello.playerName);
+            ServerPlayerEntity playerMP = Helpers.getPlayerByUsername(hello.playerName);
             if (playerMP != null)
             {
                 voiceServer.CONNECTIONS_MAP.remove(playerMP.getEntityId());

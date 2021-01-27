@@ -1,63 +1,68 @@
 package fr.nathanael2611.modularvoicechat;
 
+import com.electronwill.nightconfig.core.file.CommentedFileConfig;
+import com.electronwill.nightconfig.core.io.WritingMode;
+import fr.nathanael2611.modularvoicechat.config.ServerConfig;
 import fr.nathanael2611.modularvoicechat.network.vanilla.VanillaPacketHandler;
+import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.proxy.CommonProxy;
+import fr.nathanael2611.modularvoicechat.proxy.ServerProxy;
 import fr.nathanael2611.modularvoicechat.server.VoiceServerManager;
-import fr.nathanael2611.modularvoicechat.util.OpusLoader;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 
-import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 
-@Mod(modid = ModularVoiceChat.MOD_ID, name = ModularVoiceChat.MOD_NAME)
+@Mod(ModularVoiceChat.MOD_ID)
 public class ModularVoiceChat
 {
 
     public static final String MOD_ID = "modularvc";
     public static final String MOD_NAME = "ModularVoiceChat";
 
-    @Mod.Instance(MOD_ID)
-    public static ModularVoiceChat INSTANCE;
+/*    @Mod.Instance(MOD_ID)
+    public static ModularVoiceChat INSTANCE;*/
 
-    @SidedProxy(serverSide = "fr.nathanael2611.modularvoicechat.proxy.ServerProxy", clientSide = "fr.nathanael2611.modularvoicechat.proxy.ClientProxy")
-    private static CommonProxy proxy;
-
+    private static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     public static File modConfigDir;
 
     public static final int DEFAULT_PORT = 7656;
     public static final String DISCORD_INVITE = "https://discord.gg/kSu7eFE";
 
-    @Mod.EventHandler
-    public void onPreInitialization(FMLPreInitializationEvent event)
-    {
-        modConfigDir = new File(event.getModConfigurationDirectory(), String.format("/%s/", MOD_NAME));
-        if(!modConfigDir.exists())
-        {
-            modConfigDir.mkdirs();
-        }
+    public ModularVoiceChat() {
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SERVER_CONFIG);
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onSetup);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerStart);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerStop);
+
+        try {
+            File serverConfigFile = new File(FMLPaths.CONFIGDIR.get().toFile(), ModularVoiceChat.MOD_NAME + "/ServerConfig.toml");
+            if (!serverConfigFile.getParentFile().exists()) serverConfigFile.getParentFile().mkdirs();
+            if (!serverConfigFile.exists()) serverConfigFile.createNewFile();
+            CommentedFileConfig commentedFileConfig = CommentedFileConfig.builder(serverConfigFile).sync().autosave().writingMode(WritingMode.REPLACE).build();
+            ServerConfig.SERVER_CONFIG.setConfig(commentedFileConfig);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void onSetup(FMLCommonSetupEvent event)
+    {
         VanillaPacketHandler.getInstance().registerPackets();
 
-        proxy.onPreInitialization(event);
+        proxy.onSetup(event);
     }
 
-    @Mod.EventHandler
-    public void onInitialization(FMLInitializationEvent event)
-    {
-        proxy.onInitialization(event);
-    }
-
-    @Mod.EventHandler
-    public void onPostInitialization(FMLPostInitializationEvent event)
-    {
-        proxy.onPostInitialization(event);
-    }
-
-    @Mod.EventHandler
     public void onServerStart(FMLServerStartingEvent event)
     {
         if(event.getServer().isDedicatedServer())
@@ -69,7 +74,6 @@ public class ModularVoiceChat
         }
     }
 
-    @Mod.EventHandler
     public void onServerStop(FMLServerStoppingEvent event)
     {
         if(VoiceServerManager.isStarted())

@@ -61,7 +61,6 @@ public abstract class GameConfig
         {
             object.add(entry.getKey(), entry.getValue());
         }
-
         FileUtils.writeStringToFile(configFile, GSON.toJson(object));
     }
 

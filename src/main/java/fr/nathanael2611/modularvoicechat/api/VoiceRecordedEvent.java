@@ -1,6 +1,6 @@
 package fr.nathanael2611.modularvoicechat.api;
 
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.eventbus.api.Event;
 
 /**
  * This event will be called after a player recorded a voice sample,

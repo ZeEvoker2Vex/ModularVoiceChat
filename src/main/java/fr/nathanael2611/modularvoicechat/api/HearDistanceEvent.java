@@ -1,28 +1,28 @@
 package fr.nathanael2611.modularvoicechat.api;
 
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraftforge.eventbus.api.Event;
 
 public class HearDistanceEvent extends Event
 {
 
-    private EntityPlayerMP speaker;
-    private EntityPlayerMP hearer;
+    private ServerPlayerEntity speaker;
+    private ServerPlayerEntity hearer;
     private double distance;
 
-    public HearDistanceEvent(EntityPlayerMP speaker, EntityPlayerMP hearer, double distance)
+    public HearDistanceEvent(ServerPlayerEntity speaker, ServerPlayerEntity hearer, double distance)
     {
         this.speaker = speaker;
         this.hearer = hearer;
         this.distance = distance;
     }
 
-    public EntityPlayerMP getSpeaker()
+    public ServerPlayerEntity getSpeaker()
     {
         return speaker;
     }
 
-    public EntityPlayerMP getHearer()
+    public ServerPlayerEntity getHearer()
     {
         return hearer;
     }

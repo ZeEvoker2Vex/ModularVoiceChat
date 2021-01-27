@@ -1,7 +1,7 @@
 package fr.nathanael2611.modularvoicechat.client;
 
 import com.google.common.collect.Maps;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.HashMap;
 
@@ -10,7 +10,7 @@ public class SpeakingPlayers
 
     private static HashMap<Integer, Long> SPEAKING_PLAYERS = Maps.newHashMap();
 
-    public static boolean isTalking(EntityPlayer player)
+    public static boolean isTalking(PlayerEntity player)
     {
         return System.currentTimeMillis() - getTalkingValue(player) < 200;
     }
@@ -20,7 +20,7 @@ public class SpeakingPlayers
         SPEAKING_PLAYERS.put(id, System.currentTimeMillis());
     }
 
-    private static long getTalkingValue(EntityPlayer player)
+    private static long getTalkingValue(PlayerEntity player)
     {
         return SPEAKING_PLAYERS.getOrDefault(player.getEntityId(), 0L);
     }

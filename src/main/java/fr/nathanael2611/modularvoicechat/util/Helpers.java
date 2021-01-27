@@ -2,12 +2,12 @@ package fr.nathanael2611.modularvoicechat.util;
 
 import com.google.gson.JsonParser;
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import java.io.*;
@@ -112,7 +112,7 @@ public class Helpers
 
     public static boolean isOP(String playerName)
     {
-        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (!server.isDedicatedServer()) return true;
         for (String oppedPlayerName : server.getPlayerList().getOppedPlayerNames())
         {
@@ -121,20 +121,20 @@ public class Helpers
         return false;
     }
 
-    public static EntityPlayerMP getPlayerMP(EntityPlayer player)
+    public static ServerPlayerEntity getPlayerMP(PlayerEntity player)
     {
-        if (player instanceof EntityPlayerMP) return (EntityPlayerMP) player;
-        return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUsername(player.getName());
+        if (player instanceof ServerPlayerEntity) return (ServerPlayerEntity) player;
+        return ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByUsername(player.getName().getString());
     }
 
-    public static EntityPlayerMP getPlayerByUsername(String name)
+    public static ServerPlayerEntity getPlayerByUsername(String name)
     {
-        return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUsername(name);
+        return ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayerByUsername(name);
     }
 
-    public static EntityPlayerMP getPlayerByEntityId(int entityId)
+    public static ServerPlayerEntity getPlayerByEntityId(int entityId)
     {
-        for (EntityPlayerMP player : FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers())
+        for (ServerPlayerEntity player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers())
         {
             if (player.getEntityId() == entityId)
             {
@@ -190,10 +190,10 @@ public class Helpers
         return (int) (value * factor / max);
     }
 
-    public static NBTTagCompound getCompoundTag(ItemStack stack)
+    public static CompoundNBT getCompoundTag(ItemStack stack)
     {
-        if (stack.getTagCompound() == null) stack.setTagCompound(new NBTTagCompound());
-        return stack.getTagCompound();
+        if (stack.getTag() == null) stack.setTag(new CompoundNBT());
+        return stack.getTag();
     }
 
     public static boolean parseOrFalse(String str)

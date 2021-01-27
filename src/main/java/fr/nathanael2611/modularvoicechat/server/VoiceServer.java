@@ -14,8 +14,8 @@ import fr.nathanael2611.modularvoicechat.network.objects.KryoObjects;
 import fr.nathanael2611.modularvoicechat.network.objects.VoiceToClient;
 import fr.nathanael2611.modularvoicechat.network.objects.VoiceToServer;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class VoiceServer
 
     VoiceServer()
     {
-        this.port = ServerConfig.generalConfig.port;
+        this.port = ServerConfig.General.port.get();
         this.dispatcher = ServerConfig.generalConfig.dispatcher.createDispatcher();
         {
             VoiceServerStartEvent event = new VoiceServerStartEvent(this, this.dispatcher);
@@ -58,7 +58,7 @@ public class VoiceServer
         }
     }
 
-    public void sendToAllExcept(EntityPlayerMP except, Object obj)
+    public void sendToAllExcept(ServerPlayerEntity except, Object obj)
     {
         for (Map.Entry<Integer, Connection> connectionsEntry : this.CONNECTIONS_MAP.entrySet())
         {
@@ -72,7 +72,7 @@ public class VoiceServer
         }
     }
 
-    public void send(EntityPlayerMP dest, Object obj)
+    public void send(ServerPlayerEntity dest, Object obj)
     {
         Connection connection = getPlayerConnection(dest);
         if(connection != null)
@@ -81,12 +81,12 @@ public class VoiceServer
         }
     }
 
-    public boolean isPlayerConnected(EntityPlayer player)
+    public boolean isPlayerConnected(PlayerEntity player)
     {
         return getPlayerConnection(player)!= null;
     }
 
-    public Connection getPlayerConnection(EntityPlayer player)
+    public Connection getPlayerConnection(PlayerEntity player)
     {
         return player == null ? null : this.CONNECTIONS_MAP.get(player.getEntityId());
     }
@@ -96,7 +96,7 @@ public class VoiceServer
         return getPlayer(connection) != null;
     }
 
-    public EntityPlayerMP getPlayer(Connection connection)
+    public ServerPlayerEntity getPlayer(Connection connection)
     {
         return Helpers.getPlayerByEntityId(this.CONNECTIONS_MAP.inverse().getOrDefault(connection, -1));
     }
@@ -112,12 +112,12 @@ public class VoiceServer
         return port;
     }
 
-    public List<EntityPlayerMP> getConnectedPlayers()
+    public List<ServerPlayerEntity> getConnectedPlayers()
     {
-        List<EntityPlayerMP> list = Lists.newArrayList();
+        List<ServerPlayerEntity> list = Lists.newArrayList();
         for (Map.Entry<Connection, Integer> entry : this.CONNECTIONS_MAP.inverse().entrySet())
         {
-            EntityPlayerMP player = Helpers.getPlayerByEntityId(entry.getValue());
+            ServerPlayerEntity player = Helpers.getPlayerByEntityId(entry.getValue());
             Connection conn = entry.getKey();
             if(player != null && conn != null && conn.isConnected())
             {

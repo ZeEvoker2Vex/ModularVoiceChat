@@ -8,7 +8,7 @@ import fr.nathanael2611.modularvoicechat.util.Helpers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -56,7 +56,7 @@ public class VoiceClient
                 } catch (IOException e)
                 {
                     e.printStackTrace();
-                    Minecraft.getMinecraft().player.sendMessage(new TextComponentString("§4[" + ModularVoiceChat.MOD_NAME + "] §c" + I18n.format("mvc.error.cantconnect")));
+                    Minecraft.getInstance().player.sendMessage(new StringTextComponent("§4[" + ModularVoiceChat.MOD_NAME + "] §c" + I18n.format("mvc.error.cantconnect")));
                     Helpers.log("Failed to connect to VoiceServer.");
                 }
             }
@@ -78,8 +78,8 @@ public class VoiceClient
     public void setHandshakeDone()
     {
         this.handshakeDone = true;
-        Helpers.log("Successfully authenticate with " + Minecraft.getMinecraft().player.getName());
-        Minecraft.getMinecraft().player.sendMessage(new TextComponentString("§2[" + ModularVoiceChat.MOD_NAME + "] §a" + I18n.format("mvc.messages.connected")));
+        Helpers.log("Successfully authenticate with " + Minecraft.getInstance().player.getName());
+        Minecraft.getInstance().player.sendMessage(new StringTextComponent("§2[" + ModularVoiceChat.MOD_NAME + "] §a" + I18n.format("mvc.messages.connected")));
     }
 
     public boolean isHandshakeDone()

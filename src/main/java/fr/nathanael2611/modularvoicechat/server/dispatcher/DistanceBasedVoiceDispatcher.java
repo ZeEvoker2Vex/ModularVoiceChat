@@ -4,7 +4,7 @@ import fr.nathanael2611.modularvoicechat.api.HearDistanceEvent;
 import fr.nathanael2611.modularvoicechat.api.VoiceDispatchEvent;
 import fr.nathanael2611.modularvoicechat.api.dispatcher.IVoiceDispatcher;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 
 public class DistanceBasedVoiceDispatcher implements IVoiceDispatcher
@@ -22,7 +22,7 @@ public class DistanceBasedVoiceDispatcher implements IVoiceDispatcher
     @Override
     public void dispatch(VoiceDispatchEvent event)
     {
-        for (EntityPlayerMP connectedPlayer : event.getVoiceServer().getConnectedPlayers())
+        for (ServerPlayerEntity connectedPlayer : event.getVoiceServer().getConnectedPlayers())
         {
             if (connectedPlayer != event.getSpeaker())
             {
@@ -37,7 +37,7 @@ public class DistanceBasedVoiceDispatcher implements IVoiceDispatcher
         }
     }
 
-    public double getHearDistance(EntityPlayerMP speaker, EntityPlayerMP hearer)
+    public double getHearDistance(ServerPlayerEntity speaker, ServerPlayerEntity hearer)
     {
         HearDistanceEvent hearDistanceEvent = new HearDistanceEvent(speaker, hearer, this.MAX_DISTANCE);
         MinecraftForge.EVENT_BUS.post(hearDistanceEvent);

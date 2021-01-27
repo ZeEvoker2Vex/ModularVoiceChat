@@ -64,7 +64,7 @@ public class MicroHandler implements NoExceptionCloseable
 
     public void start()
     {
-        if(Minecraft.getMinecraft().player != null)
+        if(Minecraft.getInstance().player != null)
         {
             MinecraftForge.EVENT_BUS.post(new StartVoiceRecordEvent());
         }
@@ -73,7 +73,7 @@ public class MicroHandler implements NoExceptionCloseable
 
     public void stop()
     {
-        if(Minecraft.getMinecraft().player != null)
+        if(Minecraft.getInstance().player != null)
         {
             MinecraftForge.EVENT_BUS.post(new StopVoiceRecordEvent());
         }

@@ -2,7 +2,7 @@ package fr.nathanael2611.modularvoicechat.api;
 
 import fr.nathanael2611.modularvoicechat.api.dispatcher.IVoiceDispatcher;
 import fr.nathanael2611.modularvoicechat.server.VoiceServer;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.eventbus.api.Event;
 
 public class VoiceServerStartEvent extends Event
 {

@@ -2,10 +2,11 @@ package fr.nathanael2611.modularvoicechat.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 
-public class GuiDropDownMenu extends GuiButton
+public class GuiDropDownMenu extends Button
 {
     private String[] array;
     private boolean[] mouseOn;
@@ -13,19 +14,11 @@ public class GuiDropDownMenu extends GuiButton
     private int amountOfItems;
     public boolean dropDownMenu = false;
     public int selectedInteger;
+    private Minecraft mc = Minecraft.getInstance();
 
-    public GuiDropDownMenu(int id, int x, int y, int width, int height, String par6Str, String[] array)
+    public GuiDropDownMenu(int x, int y, int width, int height, String par6Str, String[] array, Button.IPressable onPress)
     {
-        super(id, x, y, width, height, par6Str);
-        this.prevHeight = super.height;
-        this.array = array;
-        this.amountOfItems = array.length;
-        this.mouseOn = new boolean[this.amountOfItems];
-    }
-
-    public GuiDropDownMenu(int id, int x, int y, String par4Str, String[] array)
-    {
-        super(id, x, y, par4Str);
+        super(x, y, width, height, par6Str, onPress);
         this.prevHeight = super.height;
         this.array = array;
         this.amountOfItems = array.length;
@@ -33,8 +26,9 @@ public class GuiDropDownMenu extends GuiButton
     }
 
     @Override
-    public void drawButton(Minecraft mc, int x, int y, float partialTicks)
+    public void render(int x, int y, float partialTicks)
     {
+        //super.render(x,y,partialTicks);
         if (super.visible)
         {
             if (this.dropDownMenu && this.array.length != 0) super.height = this.prevHeight * (this.amountOfItems + 1);
@@ -42,13 +36,14 @@ public class GuiDropDownMenu extends GuiButton
 
             FontRenderer fontrenderer = mc.fontRenderer;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            super.hovered = x >= super.x && y >= super.y && x < super.x + super.width && y < super.y + super.height;
-            this.getHoverState(super.hovered);
-            this.mouseDragged(mc, x, y);
+            super.isHovered = x >= super.x && y >= super.y && x < super.x + super.width && y < super.y + super.height;
+            //this.getHoverState(super.isHovered);
+            // ICI CHANGEMENT
+            this.mouseDragged(x, y, 0, x, y);
             int l = 14737632;
-            drawRect(super.x - 1, super.y - 1, super.x + super.width + 1, super.y + super.height + 1, -6250336);
-            drawRect(super.x, super.y, super.x + super.width, super.y + super.height, -16777216);
-            drawRect(super.x - 1, super.y + this.prevHeight, super.x + super.width + 1, super.y + this.prevHeight + 1, -6250336);
+            Screen.fill(super.x - 1, super.y - 1, super.x + super.width + 1, super.y + super.height + 1, -6250336);
+            Screen.fill(super.x, super.y, super.x + super.width, super.y + super.height, -16777216);
+            Screen.fill(super.x - 1, super.y + this.prevHeight, super.x + super.width + 1, super.y + this.prevHeight + 1, -6250336);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             boolean u = true;
             short var9;
@@ -56,9 +51,9 @@ public class GuiDropDownMenu extends GuiButton
             if (this.dropDownMenu && this.array.length != 0) var9 = 228;
             else var9 = 242;
 
-            if (!this.enabled) l = -6250336;
+            if (!this.visible) l = -6250336;
 
-            String normalName = normalText(this.displayString.substring(0, Math.min(this.displayString.length(), 23)));
+            String normalName = normalText(this.getMessage().substring(0, Math.min(this.getMessage().length(), 23)));
             this.drawCenteredString(fontrenderer, normalName, super.x + super.width / 2, super.y + (this.prevHeight - 8) / 2, l);
             GL11.glPushMatrix();
 
@@ -118,6 +113,6 @@ public class GuiDropDownMenu extends GuiButton
 
     private boolean inBounds(int x, int y, int posX, int posY, int width, int height)
     {
-        return this.enabled && super.visible && x >= posX && y >= posY && x < posX + width && y < posY + height;
+        return this.active && super.visible && x >= posX && y >= posY && x < posX + width && y < posY + height;
     }
 }

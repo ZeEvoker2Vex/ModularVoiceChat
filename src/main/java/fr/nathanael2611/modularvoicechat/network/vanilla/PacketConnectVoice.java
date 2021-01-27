@@ -5,23 +5,20 @@ import fr.nathanael2611.modularvoicechat.client.voice.VoiceClientManager;
 import fr.nathanael2611.modularvoicechat.client.voice.audio.MicroManager;
 import fr.nathanael2611.modularvoicechat.client.voice.audio.SpeakerManager;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.net.InetSocketAddress;
+import java.util.function.Supplier;
 
 /**
  * This will be send from the server to the client,
  * for request it to connect to the VoiceServer bind to the given port
  */
-public class PacketConnectVoice implements IMessage
+public class PacketConnectVoice
 {
 
     private String ip;
@@ -31,14 +28,6 @@ public class PacketConnectVoice implements IMessage
     private String playerName;
     /* Show who speak */
     private boolean showWhoSpeak;
-
-    /**
-     * Constructor
-     * Empty for serialization
-     */
-    public PacketConnectVoice()
-    {
-    }
 
     /**
      * Constructor
@@ -58,13 +47,13 @@ public class PacketConnectVoice implements IMessage
      *
      * @param buf buf that contain the packet objects
      */
-    @Override
-    public void fromBytes(ByteBuf buf)
+    public static PacketConnectVoice decode(PacketBuffer buf)
     {
-        this.ip = ByteBufUtils.readUTF8String(buf);
-        this.port = buf.readInt();
-        this.playerName = ByteBufUtils.readUTF8String(buf);
-        this.showWhoSpeak = buf.readBoolean();
+        String ip = buf.readString(255);
+        int port = buf.readInt();
+        String playerName = buf.readString(255);
+        boolean showWhoSpeak = buf.readBoolean();
+        return new PacketConnectVoice(ip, port, playerName, showWhoSpeak);
     }
 
     /**
@@ -72,33 +61,25 @@ public class PacketConnectVoice implements IMessage
      *
      * @param buf buf to write on
      */
-    @Override
-    public void toBytes(ByteBuf buf)
+    public static void encode(PacketConnectVoice packet, PacketBuffer buf)
     {
-        ByteBufUtils.writeUTF8String(buf, this.ip);
-        buf.writeInt(this.port);
-        ByteBufUtils.writeUTF8String(buf, this.playerName);
-        buf.writeBoolean(this.showWhoSpeak);
+        buf.writeString(packet.ip);
+        buf.writeInt(packet.port);
+        buf.writeString(packet.playerName);
+        buf.writeBoolean(packet.showWhoSpeak);
     }
 
-    public static class Message implements IMessageHandler<PacketConnectVoice, IMessage>
-    {
-        @SideOnly(Side.CLIENT)
-        @Override
-        public IMessage onMessage(PacketConnectVoice message, MessageContext ctx)
-        {
-            if(ctx.getClientHandler().getNetworkManager().getRemoteAddress() instanceof InetSocketAddress)
-            {
-                InetSocketAddress address = (InetSocketAddress) ctx.getClientHandler().getNetworkManager().getRemoteAddress();
-                String host = message.ip.length() > 0 ? message.ip : getHostName(address);
+    public static void handle(PacketConnectVoice packet, Supplier<NetworkEvent.Context> ctx){
+        if(ctx.get().getDirection().getReceptionSide() == LogicalSide.CLIENT) {
+            if (ctx.get().getNetworkManager().getRemoteAddress() instanceof InetSocketAddress) {
+                InetSocketAddress address = (InetSocketAddress) ctx.get().getNetworkManager().getRemoteAddress();
+                String host = packet.ip.length() > 0 ? packet.ip : getHostName(address);
                 Helpers.log("Receiving voice-connect packet from server: " + host);
                 new Thread(() ->
                 {
-                    try
-                    {
+                    try {
                         Thread.sleep(2000);
-                    } catch (InterruptedException e)
-                    {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     Helpers.log("Connected to a Minecraft Server, trying to handle voice connection.");
@@ -106,20 +87,20 @@ public class PacketConnectVoice implements IMessage
                     if (MicroManager.isRunning()) MicroManager.stop();
                     if (SpeakerManager.isRunning()) SpeakerManager.stop();
                     Helpers.log("[pre] Handle VoiceClient start.");
-                    VoiceClientManager.start(message.playerName, host, message.port);
+                    VoiceClientManager.start(packet.playerName, host, packet.port);
                     MicroManager.start();
                     SpeakerManager.start();
-                    ClientEventHandler.showWhoSpeak = message.showWhoSpeak;
+                    ClientEventHandler.showWhoSpeak = packet.showWhoSpeak;
                 }).start();
 
             }
-            return null;
         }
+        ctx.get().setPacketHandled(true);
     }
 
     public static String getHostName(InetSocketAddress rescue)
     {
-        ServerData serverData = Minecraft.getMinecraft().getCurrentServerData();
+        ServerData serverData = Minecraft.getInstance().getCurrentServerData();
         if(serverData != null)
         {
             return serverData.serverIP.split(":")[0];

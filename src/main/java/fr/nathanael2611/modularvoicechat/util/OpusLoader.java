@@ -3,7 +3,6 @@ package fr.nathanael2611.modularvoicechat.util;
 import com.sun.jna.Platform;
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
 import net.labymod.opus.OpusCodec;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;

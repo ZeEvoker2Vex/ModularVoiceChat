@@ -3,7 +3,7 @@ package fr.nathanael2611.modularvoicechat.api;
 import com.google.common.collect.Maps;
 import fr.nathanael2611.modularvoicechat.network.objects.VoiceToClient;
 import fr.nathanael2611.modularvoicechat.server.VoiceServer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import java.util.HashMap;
@@ -15,10 +15,10 @@ public class VoiceDispatchEvent extends PlayerEvent
 {
 
     /* This list will contain all packets waiting to be sent when the finalize() method will be called */
-    private HashMap<EntityPlayerMP, VoiceToClient> hearList = Maps.newHashMap();
+    private HashMap<ServerPlayerEntity, VoiceToClient> hearList = Maps.newHashMap();
 
     /* The speaker (sender of the audio-data) */
-    private EntityPlayerMP speaker;
+    private ServerPlayerEntity speaker;
     /* The VoiceServer that received the audio-data */
     private VoiceServer voiceServer;
     /* encoded audio-data */
@@ -32,7 +32,7 @@ public class VoiceDispatchEvent extends PlayerEvent
      * @param speaker Sender that the audio-data come from
      * @param voiceData Encoded voice-data
      */
-    public VoiceDispatchEvent(VoiceServer server, EntityPlayerMP speaker, byte[] voiceData, VoiceProperties properties)
+    public VoiceDispatchEvent(VoiceServer server, ServerPlayerEntity speaker, byte[] voiceData, VoiceProperties properties)
     {
         super(speaker);
         this.speaker = speaker;
@@ -45,7 +45,7 @@ public class VoiceDispatchEvent extends PlayerEvent
      * Simply the speaker getter
      * @return the speaker
      */
-    public EntityPlayerMP getSpeaker()
+    public ServerPlayerEntity getSpeaker()
     {
         return speaker;
     }
@@ -104,7 +104,7 @@ public class VoiceDispatchEvent extends PlayerEvent
      * Send voice-data to a specific player, with default volume
      * @param playerMP the player that we want to send the audio-data
      */
-    public void dispatchTo(EntityPlayerMP playerMP)
+    public void dispatchTo(ServerPlayerEntity playerMP)
     {
         this.dispatchTo(playerMP, 100);
     }
@@ -114,7 +114,7 @@ public class VoiceDispatchEvent extends PlayerEvent
      * @param playerMP the player that we want to send the audio-data
      * @param voiceVolume the custom volume that we want the audio-data to be played
      */
-    public void dispatchTo(EntityPlayerMP playerMP, int voiceVolume)
+    public void dispatchTo(ServerPlayerEntity playerMP, int voiceVolume)
     {
         this.dispatchTo(playerMP, voiceVolume, VoiceProperties.empty());
     }
@@ -125,7 +125,7 @@ public class VoiceDispatchEvent extends PlayerEvent
      * @param voiceVolume the custom volume that we want the audio-data to be played
      * @param properties the VoiceProperties that we want to send with the audio-data
      */
-    public void dispatchTo(EntityPlayerMP playerMP, int voiceVolume, VoiceProperties properties)
+    public void dispatchTo(ServerPlayerEntity playerMP, int voiceVolume, VoiceProperties properties)
     {
         this.dispatchTo(playerMP, voiceVolume, properties, false);
     }
@@ -137,7 +137,7 @@ public class VoiceDispatchEvent extends PlayerEvent
      * @param properties the VoiceProperties that we want to send with the audio-data
      * @param forceOverride if the audio-data still overwrites the old one
      */
-    public void dispatchTo(EntityPlayerMP playerMP, int voiceVolume, VoiceProperties properties, boolean forceOverride)
+    public void dispatchTo(ServerPlayerEntity playerMP, int voiceVolume, VoiceProperties properties, boolean forceOverride)
     {
         VoiceToClient packet = getPacket(voiceVolume, properties);
         if(!forceOverride && this.hearList.containsKey(playerMP))
@@ -185,7 +185,7 @@ public class VoiceDispatchEvent extends PlayerEvent
      */
     public void dispatchToAllExceptSpeaker(int voiceVolume, VoiceProperties properties, boolean forceOverride)
     {
-        for (EntityPlayerMP connectedPlayer : this.voiceServer.getConnectedPlayers())
+        for (ServerPlayerEntity connectedPlayer : this.voiceServer.getConnectedPlayers())
         {
             this.dispatchTo(connectedPlayer, voiceVolume, properties, forceOverride);
         }
