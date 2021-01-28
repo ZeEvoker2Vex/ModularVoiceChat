@@ -1,0 +1,65 @@
+[28janv.2021 11:20:35.029] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--gameDir, ., --launchTarget, fmluserdevserver, --fml.mcpVersion, 20190829.143755, --fml.mcVersion, 1.14.4, --fml.forgeGroup, net.minecraftforge, --fml.forgeVersion, 28.2.3]
+[28janv.2021 11:20:35.034] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 4.1.0+62+5bfa59b starting: java version 1.8.0_191 by Oracle Corporation
+[28janv.2021 11:20:35.603] [main/INFO] [net.minecraftforge.fml.loading.FixSSL/CORE]: Added Lets Encrypt root certificates as additional trust
+[28janv.2021 11:20:36.646] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'fmluserdevserver' with arguments [--gameDir, .]
+[28janv.2021 11:20:51.593] [main/WARN] [net.minecraft.command.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[28janv.2021 11:20:51.594] [main/WARN] [net.minecraft.command.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[28janv.2021 11:20:51.596] [main/WARN] [net.minecraft.command.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[28janv.2021 11:20:51.597] [main/WARN] [net.minecraft.command.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[28janv.2021 11:20:51.598] [main/WARN] [net.minecraft.command.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[28janv.2021 11:20:52.267] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting minecraft server version 1.14.4
+[28janv.2021 11:20:53.416] [modloading-worker-9/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 28.2.3, for MC 1.14.4 with MCP 20190829.143755
+[28janv.2021 11:20:53.417] [modloading-worker-9/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v28.2.3 Initialized
+[28janv.2021 11:20:53.482] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Configuration file C:\Users\ROMAIN\Desktop\Modding\ModularVoiceChat\runServer\config\ModularVoiceChat\ServerConfig.toml is not correct. Correcting
+[28janv.2021 11:20:53.484] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig was corrected from null to SimpleCommentedConfig:{}
+[28janv.2021 11:20:53.485] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig.port was corrected from null to 7656
+[28janv.2021 11:20:53.485] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig.showWhoSpeak was corrected from null to false
+[28janv.2021 11:20:53.485] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig.forcedHostname was corrected from null to 
+[28janv.2021 11:20:53.485] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig.dispatcher was corrected from null to SimpleCommentedConfig:{}
+[28janv.2021 11:20:53.486] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig.dispatcher.dispatchType was corrected from null to distanced
+[28janv.2021 11:20:53.486] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig.dispatcher.maxDistance was corrected from null to 15
+[28janv.2021 11:20:53.486] [modloading-worker-11/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key generalconfig.dispatcher.fadeOut was corrected from null to true
+[28janv.2021 11:20:53.855] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+[28janv.2021 11:20:53.859] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Loading properties
+[28janv.2021 11:20:53.863] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Default game type: SURVIVAL
+[28janv.2021 11:20:53.864] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Generating keypair
+[28janv.2021 11:20:53.931] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting Minecraft server on *:25565
+[28janv.2021 11:20:53.945] [Server thread/INFO] [net.minecraft.network.NetworkSystem/]: Using default channel type
+[28janv.2021 11:20:54.364] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[28janv.2021 11:20:54.364] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: The server will make no attempt to authenticate usernames. Beware.
+[28janv.2021 11:20:54.364] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[28janv.2021 11:20:54.364] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: To change this, set "online-mode" to "true" in the server.properties file.
+[28janv.2021 11:20:54.981] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Preparing level "world"
+[28janv.2021 11:20:55.086] [Server thread/INFO] [net.minecraftforge.registries.GameData/REGISTRIES]: Injecting existing registry data into this SERVER instance
+[28janv.2021 11:20:55.117] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 28.2.3 Target: 28.2.23
+[28janv.2021 11:20:55.381] [Server thread/INFO] [net.minecraft.resources.SimpleReloadableResourceManager/]: Reloading ResourceManager: Default, forge-1.14.4-28.2.3_mapped_snapshot_20200119-1.14.4-recomp.jar, main
+[28janv.2021 11:20:56.701] [Server thread/INFO] [net.minecraft.item.crafting.RecipeManager/]: Loaded 6 recipes
+[28janv.2021 11:20:59.170] [Server thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 811 advancements
+[28janv.2021 11:20:59.673] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[28janv.2021 11:21:00.577] [Server thread/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 0%
+[28janv.2021 11:21:00.578] [Server thread/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 0%
+[28janv.2021 11:21:00.699] [Server thread/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 0%
+[28janv.2021 11:21:02.535] [Server-Worker-3/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 83%
+[28janv.2021 11:21:02.535] [Server-Worker-5/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 83%
+[28janv.2021 11:21:02.536] [Server-Worker-9/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 83%
+[28janv.2021 11:21:02.674] [Server-Worker-4/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 95%
+[28janv.2021 11:21:03.188] [Server-Worker-1/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 95%
+[28janv.2021 11:21:04.587] [Server-Worker-6/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 97%
+[28janv.2021 11:21:04.593] [Server-Worker-1/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 97%
+[28janv.2021 11:21:04.677] [Server-Worker-2/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Preparing spawn area: 97%
+[28janv.2021 11:21:04.859] [Server thread/INFO] [net.minecraft.world.chunk.listener.LoggingChunkStatusListener/]: Time elapsed: 5186 ms
+[28janv.2021 11:21:04.860] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Done (9.981s)! For help, type "help"
+[28janv.2021 11:21:04.879] [Server thread/INFO] [STDOUT/]: [fr.nathanael2611.modularvoicechat.util.Helpers:log:248]: [11:21] [ModularVoiceChat] Starting VoiceServer...
+[28janv.2021 11:21:04.975] [Server thread/INFO] [STDOUT/]: [com.esotericsoftware.minlog.Log$Logger:print:231]: 00:00  INFO: [kryonet] Server opened.
+[28janv.2021 11:21:04.979] [Server thread/INFO] [STDOUT/]: [fr.nathanael2611.modularvoicechat.util.Helpers:log:248]: [11:21] [ModularVoiceChat] Successfully started VoiceServer.
+[28janv.2021 11:21:05.219] [Server thread/INFO] [net.minecraft.world.server.ChunkManager/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[28janv.2021 11:21:05.220] [Server thread/INFO] [net.minecraft.world.server.ChunkManager/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[28janv.2021 11:25:32.643] [Server thread/INFO] [net.minecraft.server.management.PlayerList/]: ZeEvoker2Vex[/127.0.0.1:52230] logged in with entity id 135 at (-9.629380765001173, 63.0, -174.69189957942902)
+[28janv.2021 11:25:32.725] [Netty Server IO #1/ERROR] [net.minecraft.command.arguments.ArgumentTypes/]: Could not serialize net.minecraftforge.server.command.ModIdArgument@3e1c9d9 (class net.minecraftforge.server.command.ModIdArgument) - will not be sent to client!
+[28janv.2021 11:25:32.726] [Netty Server IO #1/ERROR] [net.minecraft.command.arguments.ArgumentTypes/]: Could not serialize net.minecraftforge.server.command.EnumArgument@1cb5993 (class net.minecraftforge.server.command.EnumArgument) - will not be sent to client!
+[28janv.2021 11:25:32.726] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: ZeEvoker2Vex joined the game
+[28janv.2021 11:25:32.810] [Server thread/INFO] [STDOUT/]: [fr.nathanael2611.modularvoicechat.util.Helpers:log:248]: [11:25] [ModularVoiceChat] Requesting TextComponent{text='ZeEvoker2Vex', siblings=[], style=Style{hasParent=false, color=null, bold=null, italic=null, underlined=null, obfuscated=null, clickEvent=null, hoverEvent=null, insertion=null}} to connect to voice-server... Sending packet.
+[28janv.2021 11:25:33.568] [Server thread/ERROR] [net.minecraftforge.fml.network.simple.IndexedMessageCodec/SIMPLENET]: Received empty payload on channel fml:handshake
+[28janv.2021 11:25:41.202] [Server/INFO] [STDOUT/]: [com.esotericsoftware.minlog.Log$Logger:print:231]: 04:36  INFO: [kryonet] Connection 1 connected: /127.0.0.1
+[28janv.2021 11:25:41.206] [Server/INFO] [STDOUT/]: [fr.nathanael2611.modularvoicechat.util.Helpers:log:248]: [11:25] [ModularVoiceChat] A new player tried to connect to VoiceServer named: ZeEvoker2Vex
+[28janv.2021 11:25:41.206] [Server/INFO] [STDOUT/]: [fr.nathanael2611.modularvoicechat.util.Helpers:log:248]: [11:25] [ModularVoiceChat] Successfully added ZeEvoker2Vex to voice-server connected-players!

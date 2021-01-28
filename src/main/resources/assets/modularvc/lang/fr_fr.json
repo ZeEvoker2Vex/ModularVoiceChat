@@ -16,7 +16,7 @@
   "mvc.config.audio.output.volume": "Le volume auquel la voix des autres joueurs sera jouée.",
   "mvc.config.audio.output.desc": "Le périphérique de sortie audio. §7(Celui dont la voix des autres joueurs sortira!)",
   "mvc.config.audio.input.desc": "Le périphérique d'entrée audio. §7(Celui qui sera utilisé pour enregistrer votre voix!)",
-  "mvc.config.canMute": "/localvoicemute pour rendre des gens muets localement."
+  "mvc.config.canMute": "/localvoicemute pour rendre des gens muets localement.",
 
   "mvc.error.cantconnect": "Erreur de connexion au serveur-vocal, tentative de reconnexion! (voir les logs pour l'erreur complète)",
   "mvc.messages.connected": "Connexion au serveur-vocal établie avec succès!!",
