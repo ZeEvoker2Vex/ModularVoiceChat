@@ -8,6 +8,7 @@ import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.proxy.CommonProxy;
 import fr.nathanael2611.modularvoicechat.proxy.ServerProxy;
 import fr.nathanael2611.modularvoicechat.server.VoiceServerManager;
+import fr.nathanael2611.modularvoicechat.server.command.VoiceMute;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -31,7 +32,7 @@ public class ModularVoiceChat
 /*    @Mod.Instance(MOD_ID)
     public static ModularVoiceChat INSTANCE;*/
 
-    private static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     public static File modConfigDir;
 
     public static final int DEFAULT_PORT = 7656;
@@ -41,13 +42,15 @@ public class ModularVoiceChat
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SERVER_CONFIG);
 
+        modConfigDir = new File(FMLPaths.CONFIGDIR.get().toFile(), MOD_NAME);
+        if(!modConfigDir.exists()) modConfigDir.mkdirs();
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onSetup);
         MinecraftForge.EVENT_BUS.addListener(this::onServerStart);
         MinecraftForge.EVENT_BUS.addListener(this::onServerStop);
 
         try {
-            File serverConfigFile = new File(FMLPaths.CONFIGDIR.get().toFile(), ModularVoiceChat.MOD_NAME + "/ServerConfig.toml");
-            if (!serverConfigFile.getParentFile().exists()) serverConfigFile.getParentFile().mkdirs();
+            File serverConfigFile = new File(modConfigDir, "ServerConfig.toml");
             if (!serverConfigFile.exists()) serverConfigFile.createNewFile();
             CommentedFileConfig commentedFileConfig = CommentedFileConfig.builder(serverConfigFile).sync().autosave().writingMode(WritingMode.REPLACE).build();
             ServerConfig.SERVER_CONFIG.setConfig(commentedFileConfig);
@@ -65,6 +68,8 @@ public class ModularVoiceChat
 
     public void onServerStart(FMLServerStartingEvent event)
     {
+        VoiceMute.register(event.getCommandDispatcher(), true);
+        VoiceMute.register(event.getCommandDispatcher(), false);
         if(event.getServer().isDedicatedServer())
         {
             if(!VoiceServerManager.isStarted())

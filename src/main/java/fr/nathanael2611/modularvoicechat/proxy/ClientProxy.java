@@ -36,12 +36,6 @@ public class ClientProxy extends CommonProxy
         ClientRegistry.registerKeyBinding(KEY_OPEN_CONFIG);
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler(Minecraft.getInstance()));
 
-        ModularVoiceChat.modConfigDir = new File(Minecraft.getInstance().gameDir, "config/"+String.format("/%s/", ModularVoiceChat.MOD_NAME));
-        if(!ModularVoiceChat.modConfigDir.exists())
-        {
-            ModularVoiceChat.modConfigDir.mkdirs();
-        }
-
         File clientConfigFile = new File(ModularVoiceChat.modConfigDir, "ClientConfig.json");
         if(!clientConfigFile.exists()) {
             try {
@@ -51,6 +45,8 @@ public class ClientProxy extends CommonProxy
             }
         }
         config = new ClientConfig(clientConfigFile);
+
+        //ClientCommandHandler.instance.registerCommand(new VoiceMuteClient());
 
         if(!OpusLoader.loadOpus())
         {

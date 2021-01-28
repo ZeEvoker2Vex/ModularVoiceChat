@@ -21,8 +21,5 @@ public class ServerEventHandler
             Helpers.log("Requesting " + event.getPlayer().getName() + " to connect to voice-server... Sending packet.");
             VanillaPacketHandler.getInstance().getNetwork().send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new PacketConnectVoice(ServerConfig.General.forcedHostname.get(), VoiceServerManager.getServer().getPort(), event.getPlayer().getName().getString(), ServerConfig.General.showWhoSpeak.get()));
         }
-
-        System.out.println(VoiceServerManager.getServer().CONNECTIONS_MAP.toString());
     }
-
 }

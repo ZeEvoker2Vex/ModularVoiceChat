@@ -2,6 +2,8 @@ package fr.nathanael2611.modularvoicechat.util;
 
 import com.google.gson.JsonParser;
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -246,4 +248,10 @@ public class Helpers
         System.out.println(String.format(("[%s] [%s] " + string), DATE_FORMAT.format(new Date()), ModularVoiceChat.MOD_NAME));
     }
 
+    public static String clientGetPlayerNameForId(int id)
+    {
+        Entity e = Minecraft.getInstance().world.getEntityByID(id);
+        if(e == null) return null;
+        return e.getName().getString();
+    }
 }

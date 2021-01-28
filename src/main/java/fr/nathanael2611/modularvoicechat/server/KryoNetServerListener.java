@@ -2,11 +2,15 @@ package fr.nathanael2611.modularvoicechat.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.google.common.collect.BiMap;
 import fr.nathanael2611.modularvoicechat.api.VoiceDispatchEvent;
 import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
 import fr.nathanael2611.modularvoicechat.network.objects.*;
+import fr.nathanael2611.modularvoicechat.proxy.CommonProxy;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.play.server.STitlePacket;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 
 public class KryoNetServerListener extends Listener
@@ -17,6 +21,17 @@ public class KryoNetServerListener extends Listener
     KryoNetServerListener(VoiceServer server)
     {
         this.voiceServer = server;
+    }
+
+    @Override
+    public void disconnected(Connection connection)
+    {
+        super.disconnected(connection);
+        BiMap<Connection, Integer> map = this.voiceServer.CONNECTIONS_MAP.inverse();
+        if(map.containsKey(connection))
+        {
+            this.voiceServer.CONNECTIONS_MAP.remove(map.get(connection));
+        }
     }
 
     @Override
@@ -43,14 +58,24 @@ public class KryoNetServerListener extends Listener
         {
             if (object instanceof VoiceToServer)
             {
-                VoiceToServer voiceToServer = (VoiceToServer) object;
-                VoiceDispatchEvent event = new VoiceDispatchEvent(voiceServer, player, voiceToServer.opusBytes, VoiceProperties.empty());
-                MinecraftForge.EVENT_BUS.post(event);
-                if(!event.isCanceled())
+                if(!CommonProxy.getMutedPlayers().isMuted(player.getName().getString()))
                 {
-                    event.getVoiceServer().getVoiceDispatcher().dispatch(event);
+                    VoiceToServer voiceToServer = (VoiceToServer) object;
+                    VoiceDispatchEvent event = new VoiceDispatchEvent(voiceServer, player, voiceToServer.opusBytes, VoiceProperties.empty());
+                    MinecraftForge.EVENT_BUS.post(event);
+                    if(!event.isCanceled())
+                    {
+                        event.getVoiceServer().getVoiceDispatcher().dispatch(event);
+                    }
+                    event.finalizeDispatch();
                 }
-                event.finalizeDispatch();
+                else
+                {
+                    STitlePacket spackettitle1 = new STitlePacket(STitlePacket.Type.ACTIONBAR,
+                            new TranslationTextComponent("mvc.error.muted"),
+                            1, 1, 1);
+                    player.connection.sendPacket(spackettitle1);
+                }
             }
             else if (object instanceof VoiceEndToServer)
             {

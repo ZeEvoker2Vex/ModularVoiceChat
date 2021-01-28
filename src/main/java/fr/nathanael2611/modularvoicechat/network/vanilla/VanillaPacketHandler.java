@@ -1,6 +1,8 @@
 package fr.nathanael2611.modularvoicechat.network.vanilla;
 
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
+import fr.nathanael2611.modularvoicechat.network.commands.PacketListMuted;
+import fr.nathanael2611.modularvoicechat.network.commands.PacketLocalMute;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -63,7 +65,13 @@ public class VanillaPacketHandler
         );
 
         registerPacket(PacketConnectVoice.class, PacketConnectVoice::encode, PacketConnectVoice::decode, PacketConnectVoice::handle);
-
+        registerPacket(PacketLocalMute.class, PacketLocalMute::encode, PacketLocalMute::decode, PacketLocalMute::handle);
+        try {
+            registerPacket(PacketListMuted.class, PacketListMuted::encode, PacketListMuted::decode, PacketListMuted::handle);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
