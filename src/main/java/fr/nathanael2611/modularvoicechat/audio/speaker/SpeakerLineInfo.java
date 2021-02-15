@@ -2,7 +2,6 @@ package fr.nathanael2611.modularvoicechat.audio.speaker;
 
 import fr.nathanael2611.modularvoicechat.util.AudioUtil;
 
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.SourceDataLine;
 
 /**

@@ -66,12 +66,7 @@ public class VanillaPacketHandler
 
         registerPacket(PacketConnectVoice.class, PacketConnectVoice::encode, PacketConnectVoice::decode, PacketConnectVoice::handle);
         registerPacket(PacketLocalMute.class, PacketLocalMute::encode, PacketLocalMute::decode, PacketLocalMute::handle);
-        try {
-            registerPacket(PacketListMuted.class, PacketListMuted::encode, PacketListMuted::decode, PacketListMuted::handle);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        registerPacket(PacketListMuted.class, PacketListMuted::encode, PacketListMuted::decode, PacketListMuted::handle);
     }
 
     /**

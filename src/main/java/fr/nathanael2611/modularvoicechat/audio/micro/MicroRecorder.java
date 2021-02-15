@@ -1,10 +1,10 @@
 package fr.nathanael2611.modularvoicechat.audio.micro;
 
 import fr.nathanael2611.modularvoicechat.api.VoiceRecordedEvent;
-import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.api.IAudioEncoder;
+import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.impl.OpusEncoder;
-import fr.nathanael2611.modularvoicechat.util.*;
+import fr.nathanael2611.modularvoicechat.util.ThreadUtil;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.concurrent.ExecutorService;

@@ -1,6 +1,5 @@
 package fr.nathanael2611.modularvoicechat.server;
 
-import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
 import fr.nathanael2611.modularvoicechat.config.ServerConfig;
 import fr.nathanael2611.modularvoicechat.network.vanilla.PacketConnectVoice;
 import fr.nathanael2611.modularvoicechat.network.vanilla.VanillaPacketHandler;

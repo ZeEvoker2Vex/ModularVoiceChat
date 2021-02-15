@@ -2,7 +2,8 @@ package fr.nathanael2611.modularvoicechat.audio.speaker;
 
 import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
 
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  *

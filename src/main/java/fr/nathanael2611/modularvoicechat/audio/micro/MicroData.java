@@ -1,9 +1,12 @@
 package fr.nathanael2611.modularvoicechat.audio.micro;
 
-import javax.sound.sampled.*;
-
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.util.AudioUtil;
+
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.TargetDataLine;
 
 /**
  *

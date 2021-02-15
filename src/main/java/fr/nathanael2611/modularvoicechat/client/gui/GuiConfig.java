@@ -20,7 +20,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.net.URI;
 
 public class GuiConfig extends Screen

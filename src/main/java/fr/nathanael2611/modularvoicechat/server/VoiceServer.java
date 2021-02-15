@@ -1,18 +1,13 @@
 package fr.nathanael2611.modularvoicechat.server;
 
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
-import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
 import fr.nathanael2611.modularvoicechat.api.VoiceServerStartEvent;
 import fr.nathanael2611.modularvoicechat.api.dispatcher.IVoiceDispatcher;
 import fr.nathanael2611.modularvoicechat.config.ServerConfig;
-import fr.nathanael2611.modularvoicechat.network.objects.HelloImAPlayer;
 import fr.nathanael2611.modularvoicechat.network.objects.KryoObjects;
-import fr.nathanael2611.modularvoicechat.network.objects.VoiceToClient;
-import fr.nathanael2611.modularvoicechat.network.objects.VoiceToServer;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

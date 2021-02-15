@@ -6,12 +6,10 @@ import fr.nathanael2611.modularvoicechat.network.objects.HelloImAPlayer;
 import fr.nathanael2611.modularvoicechat.network.objects.KryoObjects;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

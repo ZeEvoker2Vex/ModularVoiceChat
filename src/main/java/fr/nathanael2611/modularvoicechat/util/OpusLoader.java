@@ -1,19 +1,8 @@
 package fr.nathanael2611.modularvoicechat.util;
 
-import com.sun.jna.Platform;
-import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
 import net.labymod.opus.OpusCodec;
-import org.apache.commons.io.FileUtils;
 
-import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
 public class OpusLoader
 {

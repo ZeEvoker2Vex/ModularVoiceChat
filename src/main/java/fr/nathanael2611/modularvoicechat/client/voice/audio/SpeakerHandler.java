@@ -2,12 +2,12 @@ package fr.nathanael2611.modularvoicechat.client.voice.audio;
 
 import com.google.gson.JsonPrimitive;
 import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
-import fr.nathanael2611.modularvoicechat.client.SpeakingPlayers;
-import fr.nathanael2611.modularvoicechat.config.ClientConfig;
-import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.speaker.SpeakerData;
 import fr.nathanael2611.modularvoicechat.audio.speaker.SpeakerPlayer;
+import fr.nathanael2611.modularvoicechat.client.SpeakingPlayers;
+import fr.nathanael2611.modularvoicechat.config.ClientConfig;
+import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.proxy.CommonProxy;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
 
