@@ -18,6 +18,9 @@
   "mvc.config.audio.input.desc": "The audio input device. §7(The one that will be used to record your voice!)",
   "mvc.config.canMute": "/localvoicemute for mute and unmute players locally.",
 
+  "mvc.config.stereo.off": "Stereo: OFF",
+  "mvc.config.stereo.on": "Stereo: ON",
+
   "mvc.error.cantconnect": "Cannot connect to voice-server, try reconnecting! (or see logs for complete error)",
   "mvc.messages.connected": "Successfully established connection with voice-server!",
   "mvc.error.notconnected": "Not connected to vocal-server. Please try reconnecting.",

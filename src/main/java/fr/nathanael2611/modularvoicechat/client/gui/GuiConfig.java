@@ -43,6 +43,7 @@ public class GuiConfig extends Screen
     private GuiConfigSlider speakerVolume;
     private Button toggleToTalk;
     private Button audioTest;
+    private Button stereo;
 
     @Override
     public void init(Minecraft mc, int width, int height)
@@ -91,12 +92,19 @@ public class GuiConfig extends Screen
             if(drop.dropDownMenu) drop.setMessage(drop.getSelectedText());
             drop.dropDownMenu = !drop.dropDownMenu;
         };
+        Button.IPressable actionStereo = button -> {
+            if(!this.speakerSelector.dropDownMenu && !this.microSelector.dropDownMenu) {
+                this.config.set(ClientConfig.STEREO, new JsonPrimitive(!this.config.isStereo()));
+                button.setMessage(getStereoMode());
+            }
+        };
 
         this.addButton(this.microVolume = new GuiConfigSlider(this,width / 2 - 150 - 5, y + 25, ClientConfig.MICROPHONE_VOLUME, 0, 150));
         this.addButton(this.speakerVolume = new GuiConfigSlider(this, width/ 2 + 5, y + 25, ClientConfig.SPEAKER_VOLUME, 0, 150));
         this.addButton(this.toggleToTalk = new Button(width / 2 - 150 - 5, y + 50, 150, 20, "Mode: " + getSpeakMode(), actionToggleToTalk));
         this.addButton(this.audioTest = new Button(width / 2 + 5, y + 50, 150, 20, (audioTesting ? I18n.format("mvc.config.audio.test.on") : I18n.format("mvc.config.audio.test.off")), actionAudioTest));
         this.addButton(new Button(width / 2 - 155, y + 50 + 25,150 + 5 + 5 + 150, 20, I18n.format("mvc.config.joindiscord"), actionDiscordButton));
+        this.addButton(this.stereo = new Button(width / 2 - 155, y + 50 + 25,150 + 5 + 5 + 150, 20, getStereoMode(), actionStereo));
         this.addButton(this.microSelector = new GuiDropDownMenu(width / 2 - 150 - 4, y, 148, 20, MicroManager.getHandler().getMicro(), Helpers.getStringListAsArray(AudioUtil.findAudioDevices(MicroData.MIC_INFO)), actionMicroSelector));
         this.addButton(this.speakerSelector = new GuiDropDownMenu(width / 2 + 6, y, 148, 20, SpeakerManager.getHandler().getSpeaker(), Helpers.getStringListAsArray(AudioUtil.findAudioDevices(SpeakerData.SPEAKER_INFO)), actionSpeakerSelector));
 
@@ -105,6 +113,11 @@ public class GuiConfig extends Screen
     public String getSpeakMode()
     {
         return this.config.get(ClientConfig.TOGGLE_TO_TALK).getAsBoolean() ? I18n.format("mvc.config.toggletotalk") : I18n.format("mvc.config.pushtotalk");
+    }
+
+    public String getStereoMode()
+    {
+        return this.config.isStereo() ? I18n.format("mvc.config.stereo.on") : I18n.format("mvc.config.stereo.off");
     }
 
     @Override

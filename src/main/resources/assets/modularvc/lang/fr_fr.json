@@ -18,6 +18,9 @@
   "mvc.config.audio.input.desc": "Le périphérique d'entrée audio. §7(Celui qui sera utilisé pour enregistrer votre voix!)",
   "mvc.config.canMute": "/localvoicemute pour rendre des gens muets localement.",
 
+  "mvc.config.stereo.off": "Stéréo: OFF",
+  "mvc.config.stereo.on": "Stéréo: ON",
+
   "mvc.error.cantconnect": "Erreur de connexion au serveur-vocal, tentative de reconnexion! (voir les logs pour l'erreur complète)",
   "mvc.messages.connected": "Connexion au serveur-vocal établie avec succès!!",
   "mvc.error.notconnected": "Non connecté au serveur-vocal. Essayez de vous reconnecter.",
