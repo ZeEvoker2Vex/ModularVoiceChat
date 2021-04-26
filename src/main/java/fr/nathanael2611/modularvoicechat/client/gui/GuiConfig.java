@@ -103,7 +103,7 @@ public class GuiConfig extends Screen
         this.addButton(this.speakerVolume = new GuiConfigSlider(this, width/ 2 + 5, y + 25, ClientConfig.SPEAKER_VOLUME, 0, 150));
         this.addButton(this.toggleToTalk = new Button(width / 2 - 150 - 5, y + 50, 150, 20, "Mode: " + getSpeakMode(), actionToggleToTalk));
         this.addButton(this.audioTest = new Button(width / 2 + 5, y + 50, 150, 20, (audioTesting ? I18n.format("mvc.config.audio.test.on") : I18n.format("mvc.config.audio.test.off")), actionAudioTest));
-        this.addButton(new Button(width / 2 - 155, y + 50 + 25,150 + 5 + 5 + 150, 20, I18n.format("mvc.config.joindiscord"), actionDiscordButton));
+        this.addButton(new Button(width / 2 - 155, y + 50 + 25 + 25,150 + 5 + 5 + 150, 20, I18n.format("mvc.config.joindiscord"), actionDiscordButton));
         this.addButton(this.stereo = new Button(width / 2 - 155, y + 50 + 25,150 + 5 + 5 + 150, 20, getStereoMode(), actionStereo));
         this.addButton(this.microSelector = new GuiDropDownMenu(width / 2 - 150 - 4, y, 148, 20, MicroManager.getHandler().getMicro(), Helpers.getStringListAsArray(AudioUtil.findAudioDevices(MicroData.MIC_INFO)), actionMicroSelector));
         this.addButton(this.speakerSelector = new GuiDropDownMenu(width / 2 + 6, y, 148, 20, SpeakerManager.getHandler().getSpeaker(), Helpers.getStringListAsArray(AudioUtil.findAudioDevices(SpeakerData.SPEAKER_INFO)), actionSpeakerSelector));
